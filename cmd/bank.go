@@ -3,10 +3,12 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/spf13/cobra"
+
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/spf13/cobra"
+
 	query "github.com/strangelove-ventures/lens/client/query"
 )
 
@@ -51,7 +53,6 @@ func bankSendCmd(a *appState) *cobra.Command {
 				return fmt.Errorf("failed to send coins: err(%w)", err)
 			}
 			return cl.PrintTxResponse(res)
-
 		},
 	}
 	memoFlag(a.Viper, cmd)

@@ -5,9 +5,10 @@ import (
 
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/desc/builder"
+	"github.com/stretchr/testify/require"
+
 	"github.com/strangelove-ventures/lens/client"
 	"github.com/strangelove-ventures/lens/cmd"
-	"github.com/stretchr/testify/require"
 )
 
 func TestChainNotFoundError(t *testing.T) {

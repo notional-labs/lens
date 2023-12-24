@@ -7,11 +7,13 @@ import (
 	"os"
 	"time"
 
-	sdkmath "cosmossdk.io/math"
 	"github.com/avast/retry-go/v4"
+	"github.com/spf13/cobra"
+
+	sdkmath "cosmossdk.io/math"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/spf13/cobra"
 )
 
 func airdropCmd(a *appState) *cobra.Command {
@@ -102,13 +104,13 @@ func airdropCmd(a *appState) *cobra.Command {
 				toSendCoin := sdk.NewCoin(denom, sdkmath.NewInt(int64(v)))
 				toSend := sdk.NewCoins(toSendCoin)
 				amount = amount.Add(toSendCoin)
-				multiMsg.Outputs = append(multiMsg.Outputs, banktypes.Output{cl.MustEncodeAccAddr(to), toSend})
+				multiMsg.Outputs = append(multiMsg.Outputs, banktypes.Output{Address: cl.MustEncodeAccAddr(to), Coins: toSend})
 				sent += 1
 
 				if len(multiMsg.Outputs) > maxSends-1 {
 					completion := float64(sent) / float64(len(airdrop))
 					fmt.Fprintf(cmd.OutOrStdout(), "(%f) sending %s to %d addresses\n", completion, amount.String(), len(multiMsg.Outputs))
-					multiMsg.Inputs = append(multiMsg.Inputs, banktypes.Input{cl.MustEncodeAccAddr(address), sdk.NewCoins(amount)})
+					multiMsg.Inputs = append(multiMsg.Inputs, banktypes.Input{Address: cl.MustEncodeAccAddr(address), Coins: sdk.NewCoins(amount)})
 					retry.Do(func() error {
 						fmt.Fprintf(cmd.OutOrStdout(), "sending tx\n")
 						res, err := cl.SendMsgs(cmd.Context(), []sdk.Msg{multiMsg}, memo)

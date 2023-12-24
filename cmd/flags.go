@@ -1,13 +1,16 @@
 package cmd
 
 import (
-	errorsmod "cosmossdk.io/errors"
-	"github.com/cosmos/cosmos-sdk/client/flags"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	tmquery "github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
+
+	errorsmod "cosmossdk.io/errors"
+
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	tmquery "github.com/cosmos/cosmos-sdk/types/query"
+
 	"github.com/strangelove-ventures/lens/client/query"
 )
 
@@ -57,9 +60,7 @@ func memoFlag(v *viper.Viper, cmd *cobra.Command) *cobra.Command {
 	return cmd
 }
 
-var (
-	FlagFrom = "from"
-)
+var FlagFrom = "from"
 
 // AddTxFlagsToCmd defines common flags to be reused across cmds
 func AddTxFlagsToCmd(cmd *cobra.Command) {

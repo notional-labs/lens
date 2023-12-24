@@ -10,8 +10,9 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/strangelove-ventures/lens/client/chain_registry"
 	"go.uber.org/zap"
+
+	"github.com/strangelove-ventures/lens/client/chainregistry"
 )
 
 func chainsCmd(a *appState) *cobra.Command {
@@ -43,7 +44,7 @@ func cmdChainsRegistryList(a *appState) *cobra.Command {
 		Aliases: []string{"rl"},
 		Short:   "list chains available for configuration from the registry",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			chains, err := chain_registry.DefaultChainRegistry(a.Log).ListChains(cmd.Context())
+			chains, err := chainregistry.DefaultChainRegistry(a.Log).ListChains(cmd.Context())
 			if err != nil {
 				return err
 			}
@@ -60,7 +61,7 @@ func cmdChainsAdd(a *appState) *cobra.Command {
 		Aliases: []string{"a"},
 		Short:   "add configuration for a chain or a number of chains from the chain registry",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			registry := chain_registry.DefaultChainRegistry(a.Log)
+			registry := chainregistry.DefaultChainRegistry(a.Log)
 			overwriteConfig := false
 
 			for _, chain := range args {

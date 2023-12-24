@@ -1,7 +1,0 @@
-version: v1
-lint:
-  ignore:
-    - amino
-    - cosmos
-    - cosmos_proto
-    - gogoproto

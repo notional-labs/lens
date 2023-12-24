@@ -2,11 +2,13 @@ package query
 
 import (
 	"context"
-	grpctypes "github.com/cosmos/cosmos-sdk/types/grpc"
-	"github.com/cosmos/cosmos-sdk/types/query"
-	"google.golang.org/grpc/metadata"
 	"strconv"
 	"time"
+
+	"google.golang.org/grpc/metadata"
+
+	grpctypes "github.com/cosmos/cosmos-sdk/types/grpc"
+	"github.com/cosmos/cosmos-sdk/types/query"
 )
 
 type QueryOptions struct {

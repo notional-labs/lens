@@ -195,7 +195,7 @@ func TestDynamicQuery_InputVariations(t *testing.T) {
 		f, err := os.CreateTemp(tmpdir, "")
 		require.NoError(t, err)
 		f.Close()
-		require.NoError(t, os.WriteFile(f.Name(), []byte(input), 0600))
+		require.NoError(t, os.WriteFile(f.Name(), []byte(input), 0o600))
 
 		res := sys.MustRun(t, "dynamic", "query", gRPCAddr, "grpc.channelz.v1.Channelz", "GetServer", "@"+f.Name())
 		require.Contains(t, res.Stdout.String(), wantResp)

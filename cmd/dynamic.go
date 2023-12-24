@@ -23,7 +23,6 @@ import (
 	rpb "google.golang.org/grpc/reflection/grpc_reflection_v1alpha"
 
 	grpctypes "github.com/cosmos/cosmos-sdk/types/grpc"
-
 )
 
 func dynamicCmd(a *appState) *cobra.Command {

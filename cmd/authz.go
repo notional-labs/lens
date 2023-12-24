@@ -1,8 +1,9 @@
 package cmd
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/authz"
 	"github.com/spf13/cobra"
+
+	"github.com/cosmos/cosmos-sdk/x/authz"
 )
 
 func authzGrantsCmd(a *appState) *cobra.Command {
@@ -59,7 +60,7 @@ func authzGrantsCmd(a *appState) *cobra.Command {
 // of smaller commands. For example, we should have a grantSend,
 // grantStake, grantWithdraw, grantVote, grantValidator, etc...
 // authzGrantAuthorizationCmd returns the authz grant authorization command for this module
-func authzGrantAuthorizationCmd(a *appState) *cobra.Command {
+func authzGrantAuthorizationCmd(*appState) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "grant [grantor] [grantee] [role]",
 		Aliases: []string{"grant"},
@@ -132,7 +133,7 @@ func authzRevokeAuthorizationCmd(a *appState) *cobra.Command {
 }
 
 // authzExecAuthorizationCmd returns the authz exec authorization command for this module
-func authzExecAuthorizationCmd(a *appState) *cobra.Command {
+func authzExecAuthorizationCmd(*appState) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "exec [msg_tx_json_file] [grantee]?",
 		Aliases: []string{"exec"},

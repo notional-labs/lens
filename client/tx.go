@@ -93,7 +93,7 @@ func (cc *ChainClient) SendMsgs(ctx context.Context, msgs []sdk.Msg, memo string
 
 		// ensure that we allways call done, even in case of an error or panic
 		defer done()
-		if err = tx.Sign(context, cc.txf, cc.Config.Key, txb, false); err != nil {
+		if err = tx.Sign(context, cc.TxFactory(), cc.Config.Key, txb, false); err != nil {
 			return err
 		}
 		return nil

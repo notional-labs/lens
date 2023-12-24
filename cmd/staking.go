@@ -3,10 +3,12 @@ package cmd
 import (
 	"strings"
 
+	"github.com/spf13/cobra"
+
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/spf13/cobra"
+
 	"github.com/strangelove-ventures/lens/client/query"
 )
 
@@ -69,7 +71,6 @@ $ lens tx staking delegate cosmosvaloper1sjllsnramtg3ewxqwwrwjxfgc4n4ef9u2lcnj0 
 				Amount:           amount,
 			}
 			return cl.HandleAndPrintMsgSend(cl.SendMsg(cmd.Context(), msg, memo))
-
 		},
 	}
 	flags.AddTxFlagsToCmd(cmd)
@@ -116,8 +117,8 @@ $ lens tx staking redelegate cosmosvaloper1sjllsnramtg3ewxqwwrwjxfgc4n4ef9u2lcnj
 			}
 			msg := &types.MsgBeginRedelegate{
 				DelegatorAddress:    cl.MustEncodeAccAddr(delAddr),
-				ValidatorSrcAddress: cl.MustEncodeValAddr(sdk.ValAddress(valSrcAddr)),
-				ValidatorDstAddress: cl.MustEncodeValAddr(sdk.ValAddress(valDstAddr)),
+				ValidatorSrcAddress: cl.MustEncodeValAddr(valSrcAddr),
+				ValidatorDstAddress: cl.MustEncodeValAddr(valDstAddr),
 				Amount:              amount,
 			}
 

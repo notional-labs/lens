@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,11 +21,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
+	"go.uber.org/zap"
+
+	"github.com/cosmos/cosmos-sdk/client/flags"
+
 	"github.com/strangelove-ventures/lens/client"
 	"github.com/strangelove-ventures/lens/client/query"
-	"go.uber.org/zap"
 )
 
 // tendermintCmd represents the tendermint command
@@ -179,7 +181,7 @@ func blockSearchCmd() *cobra.Command {
 		Use:     "block-search [query] [page] [per-page]",
 		Aliases: []string{"bls", "bs", "blsearch"},
 		Short:   "search blocks with given query",
-		// TODO: long explaination and example should include example queries
+		// TODO: long explanation and example should include example queries
 		Args: cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Fprintln(cmd.OutOrStdout(), "TODO")
@@ -284,7 +286,7 @@ func healthCmd(a *appState) *cobra.Command {
 }
 
 func netInfoCmd(a *appState) *cobra.Command {
-	// TODO: add flag for pulling out comma seperated list of peers
+	// TODO: add flag for pulling out comma separated list of peers
 	// and also filter out private IPs and other ill formed peers
 	// _{*extraCredit*}_
 	cmd := &cobra.Command{
