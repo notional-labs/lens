@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	feegrant "cosmossdk.io/x/feegrant"
 	"cosmossdk.io/x/upgrade"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/auth"
@@ -38,7 +37,6 @@ var ModuleBasics = []module.AppModuleBasic{
 	),
 	crisis.AppModuleBasic{},
 	distribution.AppModuleBasic{},
-	feegrant.AppModuleBasic{},
 	mint.AppModuleBasic{},
 	params.AppModuleBasic{},
 	slashing.AppModuleBasic{},

@@ -5,19 +5,19 @@ import (
 	"fmt"
 	"strings"
 
+	"cosmossdk.io/store/rootmulti"
 	"github.com/avast/retry-go/v4"
+	abci "github.com/cometbft/cometbft/abci/types"
+	rpcclient "github.com/cometbft/cometbft/rpc/client"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
-	"cosmossdk.io/store/rootmulti"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	"github.com/cosmos/cosmos-sdk/types/tx/signing"
-	abci "github.com/cometbft/cometbft/abci/types"
-	rpcclient "github.com/cometbft/cometbft/rpc/client"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -89,9 +89,11 @@ func (cc *ChainClient) SendMsgs(ctx context.Context, msgs []sdk.Msg, memo string
 
 	err = func() error {
 		done := cc.SetSDKContext()
+		context := context.Background()
+
 		// ensure that we allways call done, even in case of an error or panic
 		defer done()
-		if err = tx.Sign(txf, cc.Config.Key, txb, false); err != nil {
+		if err = tx.Sign(context, cc.txf, cc.Config.Key, txb, false); err != nil {
 			return err
 		}
 		return nil

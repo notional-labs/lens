@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"strings"
 
+	sdkmath "cosmossdk.io/math"
 	ctypes "github.com/cometbft/cometbft/rpc/core/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -100,7 +101,7 @@ func (cc *ChainClient) QueryBalanceWithDenomTraces(ctx context.Context, address 
 
 	var out sdk.Coins
 	for _, c := range coins {
-		if c.Amount.Equal(sdk.NewInt(0)) {
+		if c.Amount.Equal(sdkmath.NewInt(0)) {
 			continue
 		}
 

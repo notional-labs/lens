@@ -72,7 +72,7 @@ $ lens tx withdraw-rewards --from mykey --all
 					if err != nil {
 						return err
 					}
-					msg := types.NewMsgWithdrawDelegatorReward(delAddr, sdk.ValAddress(val))
+					msg := types.NewMsgWithdrawDelegatorReward(delAddr.String(), val.String())
 					msgs = append(msgs, msg)
 				}
 
@@ -81,7 +81,7 @@ $ lens tx withdraw-rewards --from mykey --all
 				if err != nil {
 					return err
 				}
-				msgs = append(msgs, types.NewMsgWithdrawDelegatorReward(delAddr, sdk.ValAddress(valAddr)))
+				msgs = append(msgs, types.NewMsgWithdrawDelegatorReward(delAddr.String(), valAddr.String()))
 			}
 
 			if commission, _ := cmd.Flags().GetBool(FlagCommission); commission {
@@ -89,7 +89,7 @@ $ lens tx withdraw-rewards --from mykey --all
 				if err != nil {
 					return err
 				}
-				msgs = append(msgs, types.NewMsgWithdrawValidatorCommission(sdk.ValAddress(valAddr)))
+				msgs = append(msgs, types.NewMsgWithdrawValidatorCommission(valAddr.String()))
 			}
 
 			return cl.HandleAndPrintMsgSend(cl.SendMsgs(cmd.Context(), msgs, memo))
