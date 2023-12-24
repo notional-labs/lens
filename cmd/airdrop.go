@@ -105,7 +105,7 @@ func airdropCmd(a *appState) *cobra.Command {
 				toSend := sdk.NewCoins(toSendCoin)
 				amount = amount.Add(toSendCoin)
 				multiMsg.Outputs = append(multiMsg.Outputs, banktypes.Output{Address: cl.MustEncodeAccAddr(to), Coins: toSend})
-				sent += 1
+				sent++
 
 				if len(multiMsg.Outputs) > maxSends-1 {
 					completion := float64(sent) / float64(len(airdrop))

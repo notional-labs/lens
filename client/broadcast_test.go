@@ -15,6 +15,7 @@ import (
 	_ "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	"github.com/stretchr/testify/assert"
 	protov2 "google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 var (
@@ -39,7 +40,15 @@ func (m myFakeMsg) ValidateBasic() error         { return nil }
 func (m myFakeMsg) GetSigners() []sdk.AccAddress { return []sdk.AccAddress{sdk.AccAddress(`hello`)} }
 
 type myFakeTx struct {
-	msgs []myFakeMsg
+	msgs                         []myFakeMsg
+	msgsV2                       []protov2.Message
+	cdc                          codec.Codec
+	Value                        string
+	bodyBz                       []byte
+	authInfoBz                   []byte
+	txBodyHasUnknownNonCriticals bool
+	signers                      [][]byte
+	tx                           *tx.Tx
 }
 
 func (m myFakeTx) GetMsgs() (msgs []sdk.Msg) {
@@ -51,7 +60,7 @@ func (m myFakeTx) GetMsgs() (msgs []sdk.Msg) {
 func (m myFakeTx) ValidateBasic() error   { return nil }
 func (m myFakeTx) AsAny() *codectypes.Any { return &codectypes.Any{} }
 
-func (m myFakeMsg) GetMsgsV2() ([]protov2.Message, error) {
+func (m myFakeTx) GetMsgsV2() ([]protov2.Message, error) {
 	if m.msgsV2 == nil {
 		err := m.initSignersAndMsgsV2()
 		if err != nil {
@@ -61,6 +70,14 @@ func (m myFakeMsg) GetMsgsV2() ([]protov2.Message, error) {
 
 	return m.msgsV2, nil
 }
+
+func (m myFakeTx) initSignersAndMsgsV2() error {
+	var err error
+	m.signers, m.msgsV2, err = m.tx.GetSigners(m.cdc)
+	return err
+}
+
+func (m myFakeMsg) ProtoReflect() protoreflect.Message { return nil }
 
 func (m myFakeMsg) initSignersAndMsgsV2() error {
 	var err error

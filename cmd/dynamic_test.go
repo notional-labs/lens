@@ -25,7 +25,7 @@ func TestDynamicInspect_ChainID(t *testing.T) {
 	_ = sys.MustRun(t, "chains", "edit", "cosmoshub", "grpc-addr", gRPCAddr)
 
 	res := sys.MustRun(t, "dynamic", "inspect", "cosmoshub")
-	require.Equal(t, res.Stdout.String(), "grpc.channelz.v1.Channelz\ngrpc.reflection.v1alpha.ServerReflection\n")
+	require.Equal(t, res.Stdout.String(), "grpc.channelz.v1.Channelz\ngrpc.reflection.v1.ServerReflection\ngrpc.reflection.v1alpha.ServerReflection\n")
 	require.Empty(t, res.Stderr.String())
 }
 
@@ -37,7 +37,7 @@ func TestDynamicInspect_AddressLiteral(t *testing.T) {
 	gRPCAddr := runGRPCReflectionServer(t)
 
 	res := sys.MustRun(t, "dynamic", "inspect", gRPCAddr)
-	require.Equal(t, res.Stdout.String(), "grpc.channelz.v1.Channelz\ngrpc.reflection.v1alpha.ServerReflection\n")
+	require.Equal(t, res.Stdout.String(), "grpc.channelz.v1.Channelz\ngrpc.reflection.v1.ServerReflection\ngrpc.reflection.v1alpha.ServerReflection\n")
 	require.Empty(t, res.Stderr.String())
 }
 
