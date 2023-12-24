@@ -28,7 +28,7 @@ clean:
 .PHONY: all lint test race msan tools clean build
 
 DOCKER := $(shell which docker)
-protoVer=0.11.2
+protoVer=0.14.1
 protoImageName=ghcr.io/cosmos/proto-builder:$(protoVer)
 protoImage=$(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace $(protoImageName)
 

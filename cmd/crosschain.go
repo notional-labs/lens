@@ -5,6 +5,7 @@ import (
 	"sort"
 	"strings"
 
+	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 	"github.com/strangelove-ventures/lens/client"
@@ -91,7 +92,7 @@ func getEnabledChainbalancesCmd(a *appState) *cobra.Command {
 				denomBalanceMap[chain] = balance
 			}
 			if combineBalances {
-				combinedBalanceMap := make(map[string]sdk.Int)
+				combinedBalanceMap := make(map[string]sdkmath.Int)
 				for _, coins := range denomBalanceMap {
 					for _, coin := range coins {
 						denom := coin.Denom
@@ -100,7 +101,7 @@ func getEnabledChainbalancesCmd(a *appState) *cobra.Command {
 							denom = items[len(items)-1]
 						}
 						if _, ok := combinedBalanceMap[denom]; !ok {
-							combinedBalanceMap[denom] = sdk.ZeroInt()
+							combinedBalanceMap[denom] = sdkmath.ZeroInt()
 						}
 						combinedBalanceMap[denom] = combinedBalanceMap[denom].Add(coin.Amount)
 					}

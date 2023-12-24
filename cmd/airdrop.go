@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	sdkmath "cosmossdk.io/math"
 	"github.com/avast/retry-go/v4"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
@@ -91,14 +92,14 @@ func airdropCmd(a *appState) *cobra.Command {
 				Inputs:  []banktypes.Input{},
 				Outputs: []banktypes.Output{},
 			}
-			amount := sdk.Coin{Denom: denom, Amount: sdk.NewInt(0)}
+			amount := sdk.Coin{Denom: denom, Amount: sdkmath.NewInt(0)}
 			var sent int
 			for k, v := range airdrop {
 				to, err := cl.DecodeBech32AccAddr(k)
 				if err != nil {
 					return err
 				}
-				toSendCoin := sdk.NewCoin(denom, sdk.NewInt(int64(v)))
+				toSendCoin := sdk.NewCoin(denom, sdkmath.NewInt(int64(v)))
 				toSend := sdk.NewCoins(toSendCoin)
 				amount = amount.Add(toSendCoin)
 				multiMsg.Outputs = append(multiMsg.Outputs, banktypes.Output{cl.MustEncodeAccAddr(to), toSend})
@@ -125,7 +126,7 @@ func airdropCmd(a *appState) *cobra.Command {
 					}, retry.Context(cmd.Context()))
 					multiMsg.Inputs = []banktypes.Input{}
 					multiMsg.Outputs = []banktypes.Output{}
-					amount = sdk.Coin{Denom: denom, Amount: sdk.NewInt(0)}
+					amount = sdk.Coin{Denom: denom, Amount: sdkmath.NewInt(0)}
 				}
 			}
 			return nil
