@@ -18,6 +18,12 @@ import (
 	transfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
 )
 
+// QueryBalanceWithAddress returns the amount of coins in the relayer account with address as input
+// TODO add pagination support
+func (cc *ChainClient) QueryBalanceWithAddress(ctx context.Context, address string) (sdk.Coins, error) {
+	return queryBalanceWithAddress(ctx, address)
+}
+
 // queryBalanceWithAddress returns the amount of coins in the relayer account with address as input
 // TODO add pagination support
 func (cc *ChainClient) queryBalanceWithAddress(ctx context.Context, address string) (sdk.Coins, error) {
