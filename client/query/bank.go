@@ -1,13 +1,13 @@
 package query
 
 import (
-	bankTypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 )
 
 // bank_ParamsRPC returns the distribution params
-func bank_ParamsRPC(q *Query) (*bankTypes.QueryParamsResponse, error) {
-	req := &bankTypes.QueryParamsRequest{}
-	queryClient := bankTypes.NewQueryClient(q.Client)
+func bankParamsRPC(q *Query) (*banktypes.QueryParamsResponse, error) {
+	req := &banktypes.QueryParamsRequest{}
+	queryClient := banktypes.NewQueryClient(q.Client)
 	ctx, cancel := q.GetQueryContext()
 	defer cancel()
 	res, err := queryClient.Params(ctx, req)
@@ -18,9 +18,9 @@ func bank_ParamsRPC(q *Query) (*bankTypes.QueryParamsResponse, error) {
 }
 
 // bank_BalanceRPC returns the balance of specified denom coins for a single account.
-func bank_BalanceRPC(q *Query, address string, denom string) (*bankTypes.QueryBalanceResponse, error) {
-	req := &bankTypes.QueryBalanceRequest{Address: address, Denom: denom}
-	queryClient := bankTypes.NewQueryClient(q.Client)
+func bankBalanceRPC(q *Query, address string, denom string) (*banktypes.QueryBalanceResponse, error) {
+	req := &banktypes.QueryBalanceRequest{Address: address, Denom: denom}
+	queryClient := banktypes.NewQueryClient(q.Client)
 	ctx, cancel := q.GetQueryContext()
 	defer cancel()
 	res, err := queryClient.Balance(ctx, req)
@@ -31,9 +31,9 @@ func bank_BalanceRPC(q *Query, address string, denom string) (*bankTypes.QueryBa
 }
 
 // bank_AllBalancesRPC returns the balance of all coins for a single account.
-func bank_AllBalancesRPC(q *Query, address string) (*bankTypes.QueryAllBalancesResponse, error) {
-	req := &bankTypes.QueryAllBalancesRequest{Address: address, Pagination: q.Options.Pagination}
-	queryClient := bankTypes.NewQueryClient(q.Client)
+func bankAllBalancesRPC(q *Query, address string) (*banktypes.QueryAllBalancesResponse, error) {
+	req := &banktypes.QueryAllBalancesRequest{Address: address, Pagination: q.Options.Pagination}
+	queryClient := banktypes.NewQueryClient(q.Client)
 	ctx, cancel := q.GetQueryContext()
 	defer cancel()
 	res, err := queryClient.AllBalances(ctx, req)
@@ -44,9 +44,9 @@ func bank_AllBalancesRPC(q *Query, address string) (*bankTypes.QueryAllBalancesR
 }
 
 // bank_SupplyOfRPC returns the supply of all coins
-func bank_SupplyOfRPC(q *Query, denom string) (*bankTypes.QuerySupplyOfResponse, error) {
-	req := &bankTypes.QuerySupplyOfRequest{Denom: denom}
-	queryClient := bankTypes.NewQueryClient(q.Client)
+func bankSupplyOfRPC(q *Query, denom string) (*banktypes.QuerySupplyOfResponse, error) {
+	req := &banktypes.QuerySupplyOfRequest{Denom: denom}
+	queryClient := banktypes.NewQueryClient(q.Client)
 	ctx, cancel := q.GetQueryContext()
 	defer cancel()
 	res, err := queryClient.SupplyOf(ctx, req)
@@ -57,9 +57,9 @@ func bank_SupplyOfRPC(q *Query, denom string) (*bankTypes.QuerySupplyOfResponse,
 }
 
 // bank_TotalSupplyRPC returns the supply of all coins
-func bank_TotalSupplyRPC(q *Query) (*bankTypes.QueryTotalSupplyResponse, error) {
-	req := &bankTypes.QueryTotalSupplyRequest{Pagination: q.Options.Pagination}
-	queryClient := bankTypes.NewQueryClient(q.Client)
+func bankTotalSupplyRPC(q *Query) (*banktypes.QueryTotalSupplyResponse, error) {
+	req := &banktypes.QueryTotalSupplyRequest{Pagination: q.Options.Pagination}
+	queryClient := banktypes.NewQueryClient(q.Client)
 	ctx, cancel := q.GetQueryContext()
 	defer cancel()
 	res, err := queryClient.TotalSupply(ctx, req)
@@ -70,9 +70,9 @@ func bank_TotalSupplyRPC(q *Query) (*bankTypes.QueryTotalSupplyResponse, error) 
 }
 
 // bank_DenomMetadataRPC returns the metadata for given denom
-func bank_DenomMetadataRPC(q *Query, denom string) (*bankTypes.QueryDenomMetadataResponse, error) {
-	req := &bankTypes.QueryDenomMetadataRequest{Denom: denom}
-	queryClient := bankTypes.NewQueryClient(q.Client)
+func bankDenomMetadataRPC(q *Query, denom string) (*banktypes.QueryDenomMetadataResponse, error) {
+	req := &banktypes.QueryDenomMetadataRequest{Denom: denom}
+	queryClient := banktypes.NewQueryClient(q.Client)
 	ctx, cancel := q.GetQueryContext()
 	defer cancel()
 	res, err := queryClient.DenomMetadata(ctx, req)
@@ -83,9 +83,9 @@ func bank_DenomMetadataRPC(q *Query, denom string) (*bankTypes.QueryDenomMetadat
 }
 
 // bank_DenomsMetadataRPC returns the metadata for all denoms
-func bank_DenomsMetadataRPC(q *Query) (*bankTypes.QueryDenomsMetadataResponse, error) {
-	req := &bankTypes.QueryDenomsMetadataRequest{Pagination: q.Options.Pagination}
-	queryClient := bankTypes.NewQueryClient(q.Client)
+func bankDenomsMetadataRPC(q *Query) (*banktypes.QueryDenomsMetadataResponse, error) {
+	req := &banktypes.QueryDenomsMetadataRequest{Pagination: q.Options.Pagination}
+	queryClient := banktypes.NewQueryClient(q.Client)
 	ctx, cancel := q.GetQueryContext()
 	defer cancel()
 	res, err := queryClient.DenomsMetadata(ctx, req)

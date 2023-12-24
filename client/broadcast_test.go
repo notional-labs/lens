@@ -8,8 +8,10 @@ import (
 
 	ctypes "github.com/cometbft/cometbft/rpc/core/types"
 	tmtypes "github.com/cometbft/cometbft/types"
+	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/tx"
 	_ "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	"github.com/stretchr/testify/assert"
 	protov2 "google.golang.org/protobuf/proto"
@@ -20,8 +22,14 @@ var (
 )
 
 type myFakeMsg struct {
-	Value  string
-	msgsV2 []protov2.Message
+	cdc                          codec.Codec
+	Value                        string
+	msgsV2                       []protov2.Message
+	bodyBz                       []byte
+	authInfoBz                   []byte
+	txBodyHasUnknownNonCriticals bool
+	signers                      [][]byte
+	tx                           *tx.Tx
 }
 
 func (m myFakeMsg) Reset()                       {}
@@ -43,7 +51,7 @@ func (m myFakeTx) GetMsgs() (msgs []sdk.Msg) {
 func (m myFakeTx) ValidateBasic() error   { return nil }
 func (m myFakeTx) AsAny() *codectypes.Any { return &codectypes.Any{} }
 
-func (m myFakeTx) GetMsgsV2() ([]protov2.Message, error) {
+func (m myFakeMsg) GetMsgsV2() ([]protov2.Message, error) {
 	if m.msgsV2 == nil {
 		err := m.initSignersAndMsgsV2()
 		if err != nil {
@@ -54,7 +62,7 @@ func (m myFakeTx) GetMsgsV2() ([]protov2.Message, error) {
 	return m.msgsV2, nil
 }
 
-func (m myFakeTx) initSignersAndMsgsV2() error {
+func (m myFakeMsg) initSignersAndMsgsV2() error {
 	var err error
 	m.signers, m.msgsV2, err = m.tx.GetSigners(m.cdc)
 	return err
@@ -103,12 +111,12 @@ func TestBroadcast(t *testing.T) {
 				tx: func(_ context.Context, hash []byte, _ bool) (*ctypes.ResultTx, error) {
 					assert.Equal(t, []byte(`123bob`), hash)
 					return &ctypes.ResultTx{}, nil
-				}, nil,
+				},
 			},
 			txDecoder: func(txBytes []byte) (sdk.Tx, error) {
 				return myFakeTx{
-					[]myFakeMsg{{Value: "hello", msgsV2: []protov2.Message{&myFakeMsg{Value: "hello"}}},
-				},
+					msgs: []myFakeMsg{{Value: "hello", msgsV2: []protov2.Message{&myFakeMsg{Value: "hello"}}}},
+				}, nil
 			},
 			expectedRes: &sdk.TxResponse{
 				Tx: &codectypes.Any{},

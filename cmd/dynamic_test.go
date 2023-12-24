@@ -219,7 +219,7 @@ func runGRPCReflectionServer(t *testing.T) string {
 	reflection.Register(srv)                         // Required for reflection.
 	channelzsvc.RegisterChannelzServiceToServer(srv) // Arbitrary other built-in gRPC service to confirm reflection behavior.
 	go func() {
-		srv.Serve(ln)
+		srv.Serve(ln) //nolint:errcheck
 	}()
 	t.Cleanup(srv.Stop)
 
