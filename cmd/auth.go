@@ -1,15 +1,16 @@
 package cmd
 
 import (
-	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/spf13/cobra"
+
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
 func authAccountCmd(a *appState) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "account [address]",
 		Aliases: []string{"acc"},
-		Short:   "query an account for its number and sequence or pass no arguement to query default account",
+		Short:   "query an account for its number and sequence or pass no argument to query default account",
 		Args:    cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cl := a.Config.GetDefaultClient()

@@ -1,4 +1,4 @@
-package chain_registry
+package chainregistry
 
 import (
 	"context"

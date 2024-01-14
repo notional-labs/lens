@@ -1,20 +1,21 @@
-package chain_registry
+package chainregistry
 
 import (
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"math/rand"
 	"net/http"
 	"net/url"
 	"time"
 
 	"github.com/spf13/viper"
-	"github.com/strangelove-ventures/lens/client"
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
+
+	"github.com/strangelove-ventures/lens/client"
 )
 
 type ChainInfo struct {
@@ -91,7 +92,7 @@ func (c ChainInfo) GetAllRPCEndpoints() (out []string, err error) {
 		out = append(out, fmt.Sprintf("%s://%s:%s%s", u.Scheme, u.Hostname(), port, u.Path))
 	}
 
-	return
+	return out, nil
 }
 
 func IsHealthyRPC(ctx context.Context, endpoint string) error {
@@ -126,7 +127,7 @@ func (c ChainInfo) GetRPCEndpoints(ctx context.Context) (out []string, err error
 		eg.Go(func() error {
 			err := IsHealthyRPC(ctx, endpoint)
 			if err != nil {
-				unhealthy += 1
+				unhealthy++
 				c.log.Debug(
 					"Ignoring endpoint due to error",
 					zap.String("endpoint", endpoint),
@@ -134,7 +135,7 @@ func (c ChainInfo) GetRPCEndpoints(ctx context.Context) (out []string, err error
 				)
 				return nil
 			}
-			healthy += 1
+			healthy++
 			c.log.Debug("Verified healthy endpoint", zap.String("endpoint", endpoint))
 			endpoints = append(endpoints, endpoint)
 			return nil
@@ -185,17 +186,16 @@ func (c ChainInfo) GetAssetList(ctx context.Context) (AssetList, error) {
 		return AssetList{}, fmt.Errorf("response code: %d: GET failed: %s", res.StatusCode, chainRegURL)
 	}
 
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return AssetList{}, err
 	}
 
 	var assetList AssetList
-	if err := json.Unmarshal([]byte(body), &assetList); err != nil {
+	if err := json.Unmarshal(body, &assetList); err != nil {
 		return AssetList{}, err
 	}
 	return assetList, nil
-
 }
 
 func (c ChainInfo) GetChainConfig(ctx context.Context) (*client.ChainClientConfig, error) {
@@ -230,6 +230,6 @@ func (c ChainInfo) GetChainConfig(ctx context.Context) (*client.ChainClientConfi
 		Timeout:        "20s",
 		OutputFormat:   "json",
 		SignModeStr:    "direct",
-		Slip44:			c.Slip44,
+		Slip44:         c.Slip44,
 	}, nil
 }

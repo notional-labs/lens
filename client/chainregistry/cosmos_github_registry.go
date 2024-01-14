@@ -1,10 +1,10 @@
-package chain_registry
+package chainregistry
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -21,7 +21,7 @@ func NewCosmosGithubRegistry(log *zap.Logger) CosmosGithubRegistry {
 	return CosmosGithubRegistry{log: log}
 }
 
-func (c CosmosGithubRegistry) ListChains(ctx context.Context) ([]string, error) {
+func (CosmosGithubRegistry) ListChains(ctx context.Context) ([]string, error) {
 	client := github.NewClient(http.DefaultClient)
 	var chains []string
 
@@ -62,7 +62,7 @@ func (c CosmosGithubRegistry) GetChain(ctx context.Context, name string) (ChainI
 	}
 
 	result := NewChainInfo(c.log.With(zap.String("chain_name", name)))
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return ChainInfo{}, err
 	}
@@ -72,6 +72,6 @@ func (c CosmosGithubRegistry) GetChain(ctx context.Context, name string) (ChainI
 	return result, nil
 }
 
-func (c CosmosGithubRegistry) SourceLink() string {
+func (CosmosGithubRegistry) SourceLink() string {
 	return "https://github.com/cosmos/chain-registry"
 }

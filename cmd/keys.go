@@ -8,10 +8,11 @@ import (
 	"sort"
 	"strings"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"golang.org/x/term"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 const (

@@ -5,15 +5,17 @@ import (
 	"os"
 	"path"
 
-	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/spf13/cobra"
-	"github.com/strangelove-ventures/lens/client"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v2"
+
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/types/module"
+
+	"github.com/strangelove-ventures/lens/client"
 )
 
-//createConfig idempotently creates the config.
+// createConfig idempotently creates the config.
 func createConfig(home string, debug bool) error {
 	cfgPath := path.Join(home, "config.yaml")
 
@@ -31,7 +33,7 @@ func createConfig(home string, debug bool) error {
 
 	// Then create the file...
 	content := defaultConfig(path.Join(home, "keys"), debug)
-	if err := os.WriteFile(cfgPath, content, 0600); err != nil {
+	if err := os.WriteFile(cfgPath, content, 0o600); err != nil {
 		return err
 	}
 

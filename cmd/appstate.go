@@ -31,7 +31,7 @@ type appState struct {
 func (a *appState) OverwriteConfig(cfg *Config) error {
 	home := a.Viper.GetString("home")
 	cfgPath := path.Join(home, "config.yaml")
-	if err := os.WriteFile(cfgPath, cfg.MustYAML(), 0600); err != nil {
+	if err := os.WriteFile(cfgPath, cfg.MustYAML(), 0o600); err != nil {
 		return err
 	}
 

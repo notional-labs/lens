@@ -4,11 +4,14 @@ import (
 	bankTypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	distributionTypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	stakingTypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	clienttypes "github.com/cosmos/ibc-go/v7/modules/core/02-client/types"
-	connectiontypes "github.com/cosmos/ibc-go/v7/modules/core/03-connection/types"
-	channeltypes "github.com/cosmos/ibc-go/v7/modules/core/04-channel/types"
-	"github.com/strangelove-ventures/lens/client"
+
 	coretypes "github.com/cometbft/cometbft/rpc/core/types"
+
+	clienttypes "github.com/cosmos/ibc-go/v8/modules/core/02-client/types"
+	connectiontypes "github.com/cosmos/ibc-go/v8/modules/core/03-connection/types"
+	channeltypes "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
+
+	"github.com/strangelove-ventures/lens/client"
 )
 
 type Query struct {
@@ -21,43 +24,43 @@ type Query struct {
 // Return params for bank module.
 func (q *Query) Bank_Params() (*bankTypes.QueryParamsResponse, error) {
 	/// TODO: In the future have some logic to route the query to the appropriate client (gRPC or RPC)
-	return bank_ParamsRPC(q)
+	return bankParamsRPC(q)
 }
 
 // Balances returns the balance of specific denom for a single account.
 func (q *Query) Bank_Balance(address string, denom string) (*bankTypes.QueryBalanceResponse, error) {
 	/// TODO: In the future have some logic to route the query to the appropriate client (gRPC or RPC)
-	return bank_BalanceRPC(q, address, denom)
+	return bankBalanceRPC(q, address, denom)
 }
 
 // Balances returns the balance of all coins for a single account.
 func (q *Query) Bank_Balances(address string) (*bankTypes.QueryAllBalancesResponse, error) {
 	/// TODO: In the future have some logic to route the query to the appropriate client (gRPC or RPC)
-	return bank_AllBalancesRPC(q, address)
+	return bankAllBalancesRPC(q, address)
 }
 
 // SupplyOf returns the supply of given coin
 func (q *Query) Bank_SupplyOf(denom string) (*bankTypes.QuerySupplyOfResponse, error) {
 	/// TODO: In the future have some logic to route the query to the appropriate client (gRPC or RPC)
-	return bank_SupplyOfRPC(q, denom)
+	return bankSupplyOfRPC(q, denom)
 }
 
 // TotalSupply returns the supply of all coins
 func (q *Query) Bank_TotalSupply() (*bankTypes.QueryTotalSupplyResponse, error) {
 	/// TODO: In the future have some logic to route the query to the appropriate client (gRPC or RPC)
-	return bank_TotalSupplyRPC(q)
+	return bankTotalSupplyRPC(q)
 }
 
 // DenomMetadata returns the metadata for given denoms
 func (q *Query) Bank_DenomMetadata(denom string) (*bankTypes.QueryDenomMetadataResponse, error) {
 	/// TODO: In the future have some logic to route the query to the appropriate client (gRPC or RPC)
-	return bank_DenomMetadataRPC(q, denom)
+	return bankDenomMetadataRPC(q, denom)
 }
 
 // DenomsMetadata returns the metadata for all denoms
 func (q *Query) Bank_DenomsMetadata() (*bankTypes.QueryDenomsMetadataResponse, error) {
 	/// TODO: In the future have some logic to route the query to the appropriate client (gRPC or RPC)
-	return bank_DenomsMetadataRPC(q)
+	return bankDenomsMetadataRPC(q)
 }
 
 // Staking queries

@@ -25,7 +25,7 @@ func TestDynamicInspect_ChainID(t *testing.T) {
 	_ = sys.MustRun(t, "chains", "edit", "cosmoshub", "grpc-addr", gRPCAddr)
 
 	res := sys.MustRun(t, "dynamic", "inspect", "cosmoshub")
-	require.Equal(t, res.Stdout.String(), "grpc.channelz.v1.Channelz\ngrpc.reflection.v1alpha.ServerReflection\n")
+	require.Equal(t, res.Stdout.String(), "grpc.channelz.v1.Channelz\ngrpc.reflection.v1.ServerReflection\ngrpc.reflection.v1alpha.ServerReflection\n")
 	require.Empty(t, res.Stderr.String())
 }
 
@@ -37,7 +37,7 @@ func TestDynamicInspect_AddressLiteral(t *testing.T) {
 	gRPCAddr := runGRPCReflectionServer(t)
 
 	res := sys.MustRun(t, "dynamic", "inspect", gRPCAddr)
-	require.Equal(t, res.Stdout.String(), "grpc.channelz.v1.Channelz\ngrpc.reflection.v1alpha.ServerReflection\n")
+	require.Equal(t, res.Stdout.String(), "grpc.channelz.v1.Channelz\ngrpc.reflection.v1.ServerReflection\ngrpc.reflection.v1alpha.ServerReflection\n")
 	require.Empty(t, res.Stderr.String())
 }
 
@@ -195,7 +195,7 @@ func TestDynamicQuery_InputVariations(t *testing.T) {
 		f, err := os.CreateTemp(tmpdir, "")
 		require.NoError(t, err)
 		f.Close()
-		require.NoError(t, os.WriteFile(f.Name(), []byte(input), 0600))
+		require.NoError(t, os.WriteFile(f.Name(), []byte(input), 0o600))
 
 		res := sys.MustRun(t, "dynamic", "query", gRPCAddr, "grpc.channelz.v1.Channelz", "GetServer", "@"+f.Name())
 		require.Contains(t, res.Stdout.String(), wantResp)
@@ -219,7 +219,7 @@ func runGRPCReflectionServer(t *testing.T) string {
 	reflection.Register(srv)                         // Required for reflection.
 	channelzsvc.RegisterChannelzServiceToServer(srv) // Arbitrary other built-in gRPC service to confirm reflection behavior.
 	go func() {
-		srv.Serve(ln)
+		srv.Serve(ln) //nolint:errcheck
 	}()
 	t.Cleanup(srv.Stop)
 
