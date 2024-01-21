@@ -29,7 +29,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	github.com/tyler-smith/go-bip39 v1.1.0
 	go.uber.org/zap v1.24.0
-	golang.org/x/sync v0.5.0
+	golang.org/x/sync v0.6.0
 	golang.org/x/term v0.16.0
 	google.golang.org/grpc v1.60.0
 	gopkg.in/yaml.v2 v2.4.0
