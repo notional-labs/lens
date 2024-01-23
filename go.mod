@@ -21,7 +21,7 @@ require (
 	github.com/ethereum/go-ethereum v1.13.10
 	github.com/google/go-cmp v0.6.0
 	github.com/google/go-github/v43 v43.0.0
-	github.com/jhump/protoreflect v1.15.3
+	github.com/jhump/protoreflect v1.15.5
 	github.com/jsternberg/zap-logfmt v1.3.0
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/pflag v1.0.5
@@ -49,7 +49,7 @@ require (
 	github.com/bits-and-blooms/bitset v1.10.0 // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
 	github.com/btcsuite/btcd/chaincfg/chainhash v1.1.0 // indirect
-	github.com/bufbuild/protocompile v0.6.0 // indirect
+	github.com/bufbuild/protocompile v0.8.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/chzyer/readline v1.5.1 // indirect
 	github.com/cockroachdb/errors v1.11.1 // indirect
