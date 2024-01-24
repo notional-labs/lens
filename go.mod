@@ -11,7 +11,7 @@ require (
 	github.com/avast/retry-go/v4 v4.3.4
 	github.com/btcsuite/btcd v0.23.5-0.20231215221805-96c9fd8078fd
 	github.com/btcsuite/btcd/btcutil v1.1.5
-	github.com/cometbft/cometbft v0.38.3
+	github.com/cometbft/cometbft v0.38.5
 	github.com/cosmos/cosmos-proto v1.0.0-beta.3
 	github.com/cosmos/cosmos-sdk v0.50.3
 	github.com/cosmos/go-bip39 v1.0.0
