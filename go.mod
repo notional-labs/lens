@@ -14,7 +14,7 @@ require (
 	cosmossdk.io/x/feegrant v0.1.0
 	cosmossdk.io/x/tx v0.13.0 // indirect
 	cosmossdk.io/x/upgrade v0.1.1
-	github.com/avast/retry-go/v4 v4.3.4
+	github.com/avast/retry-go/v4 v4.5.1
 	github.com/btcsuite/btcd v0.23.5-0.20231215221805-96c9fd8078fd
 	github.com/btcsuite/btcd/btcutil v1.1.5
 	github.com/cometbft/cometbft v0.38.5
