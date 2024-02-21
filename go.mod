@@ -25,7 +25,7 @@ require (
 	github.com/cosmos/gogoproto v1.4.11
 	github.com/cosmos/ibc-go/modules/capability v1.0.0
 	github.com/cosmos/ibc-go/v8 v8.0.0
-	github.com/ethereum/go-ethereum v1.13.10
+	github.com/ethereum/go-ethereum v1.13.13
 	github.com/google/go-cmp v0.6.0
 	github.com/google/go-github/v43 v43.0.0
 	github.com/jhump/protoreflect v1.15.6
@@ -71,7 +71,6 @@ require (
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/getsentry/sentry-go v0.25.0 // indirect
 	github.com/gin-gonic/gin v1.9.1 // indirect
-	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/gogo/googleapis v1.4.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/mock v1.6.0 // indirect
