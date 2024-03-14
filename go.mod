@@ -24,7 +24,7 @@ require (
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/gogoproto v1.4.11
 	github.com/cosmos/ibc-go/modules/capability v1.0.0
-	github.com/cosmos/ibc-go/v8 v8.0.0
+	github.com/cosmos/ibc-go/v8 v8.1.1
 	github.com/ethereum/go-ethereum v1.13.10
 	github.com/google/go-cmp v0.6.0
 	github.com/google/go-github/v43 v43.0.0
